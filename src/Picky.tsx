@@ -522,6 +522,7 @@ class Picky extends React.PureComponent<PickyProps, PickyState> {
       return renderList({
         items,
         selected: this.props.value,
+        allSelected: this.state.allSelected,
         multiple,
         tabIndex,
         getIsSelected: this.isItemSelected,
