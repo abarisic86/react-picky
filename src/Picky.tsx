@@ -77,6 +77,14 @@ export type PickyProps = {
   multiple?: boolean;
 
   /**
+   * True if selction of item after all is selected should filter that item
+   *
+   * @type {boolean}
+   * @memberof PickyProps
+   */
+  reverseSelection?: boolean;
+
+  /**
    * Options for the Picky component either [1, 2, 3] or [{label: "1", value: 1}] in conjunction with valueKey and labelKey props
    *
    * @type {any[]} [[]]
@@ -380,6 +388,7 @@ class Picky extends React.PureComponent<PickyProps, PickyState> {
 
   selectValue(val: string | number) {
     const valueLookup = this.props.value;
+    const isAllSelected = this.state.allSelected === 'all';
     if (this.props.multiple && Array.isArray(valueLookup)) {
       const itemIndex = hasItemIndex(
         valueLookup,
@@ -389,7 +398,9 @@ class Picky extends React.PureComponent<PickyProps, PickyState> {
       );
 
       let selectedValue: OptionsType = [];
-      if (itemIndex > -1) {
+      if (this.props.reverseSelection && isAllSelected) {
+        selectedValue = [val];
+      } else if (itemIndex > -1) {
         selectedValue = [
           ...valueLookup.slice(0, itemIndex),
           ...valueLookup.slice(itemIndex + 1),
