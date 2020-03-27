@@ -146,6 +146,14 @@ export interface RenderListProps {
   selected: OptionsType | OptionType | undefined;
 
   /**
+   * Current allSelected state
+   *
+   * @type {SelectionState}
+   * @memberof RenderListProps
+   */
+  allSelected: SelectionState;
+
+  /**
    *  True if Picky allows multiple selection
    *
    * @type {boolean}
